@@ -1,5 +1,6 @@
 window.onload = function () {
     db_test()
+    console.log(d3)
 }
 
 function db_test() {
