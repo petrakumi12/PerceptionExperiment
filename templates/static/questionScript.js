@@ -1,8 +1,8 @@
 let tests = load_test_vars();
 let cur_number = null;
-let bar = null
+let bar = null;
 let progress_number = 0;
-let responses = {}
+let responses = {};
 
 window.onload = function () {
     disable_next_button();
@@ -14,19 +14,19 @@ window.onload = function () {
         disable_next_button()
     });
     bar = new ProgressBar.Line("#progress-div", {
-    strokeWidth: 4,
-    easing: 'easeInOut',
-    duration: 1400,
-    color: '#1b95b1',
-    trailColor: '#eee',
-    trailWidth: 1,
-    svgStyle: {width: '100%', height: '100%'},
-    from: {color: '#56a89f'},
-    to: {color: '#307891'},
-    step: (state, bar) => {
-        bar.path.setAttribute('stroke', state.color);
-    }
-});
+        strokeWidth: 4,
+        easing: 'easeInOut',
+        duration: 1400,
+        color: '#1b95b1',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: {width: '100%', height: '100%'},
+        from: {color: '#56a89f'},
+        to: {color: '#307891'},
+        step: (state, bar) => {
+            bar.path.setAttribute('stroke', state.color);
+        }
+    });
     next()
 };
 
@@ -50,11 +50,11 @@ function load_test_vars() {
 }
 
 function next() {
-    responses[cur_number] = document.getElementById("input-text").value;
-    console.log('number', cur_number);
-    console.log('response', cur_number, responses[cur_number])
     cur_number = tests[1].shift();
+    console.log('number', cur_number);
     if (cur_number !== undefined) {
+        responses[cur_number] = document.getElementById("input-text").value;
+        console.log('response', cur_number, responses[cur_number])
         document.getElementById('fcn-output').innerText = tests[0][cur_number]
         document.getElementById("input-text").value = "";
         progress_number = progress_number + 0.1;
@@ -62,7 +62,10 @@ function next() {
         disable_next_button()
     } else {
         //TODO record response to db
-        document.getElementById('fcn-output').innerText = "Thank you for taking the survey! <br/> Your response has been recorded."
+        document.getElementById("content-column").innerHTML = "<div id=\"fcn-output\"></div>";
+        document.getElementById('fcn-output').innerHTML = "Thank you for taking the survey! <br/> Your response has been recorded.";
+        document.getElementById('gif').innerHTML = "<img src='static/img/giphy (1).gif'>";
+        console.log("final response dict", responses)
     }
 
 

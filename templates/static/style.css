@@ -17,3 +17,10 @@ body {
     top: 0;
     z-index: -1;
 }
+
+#gif {
+    position: absolute;
+    left: 35vw;
+    top: 55vh;
+    z-index: -1;
+}

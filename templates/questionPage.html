@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Data Viz Assignment 1</title>
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -23,12 +24,13 @@
 <div id="progress-div"></div>
 <div class="card">
     <div class="row mx-3 my-3">
-        <div class="col text-center">
+        <div class="col text-center" id="content-column">
             <div id="fcn-output"></div>
             <input class="form-control" type="text" placeholder="Default input" id="input-text">
             <button type="button" class="btn btn-info mt-3" id='next-btn' onclick="next()">Next</button>
         </div>
     </div>
 </div>
+<div id="gif"></div>
 </body>
 </html>
