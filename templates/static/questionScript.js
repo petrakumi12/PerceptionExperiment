@@ -1,6 +1,8 @@
 let tests = load_test_vars();
-let responses = {};
 let cur_number = null;
+let bar = null
+let progress_number = 0;
+let responses = {}
 
 window.onload = function () {
     disable_next_button();
@@ -11,6 +13,20 @@ window.onload = function () {
     document.getElementById("input-text").addEventListener("keyup", function () {
         disable_next_button()
     });
+    bar = new ProgressBar.Line("#progress-div", {
+    strokeWidth: 4,
+    easing: 'easeInOut',
+    duration: 1400,
+    color: '#1b95b1',
+    trailColor: '#eee',
+    trailWidth: 1,
+    svgStyle: {width: '100%', height: '100%'},
+    from: {color: '#56a89f'},
+    to: {color: '#307891'},
+    step: (state, bar) => {
+        bar.path.setAttribute('stroke', state.color);
+    }
+});
     next()
 };
 
@@ -38,9 +54,17 @@ function next() {
     console.log('number', cur_number);
     console.log('response', cur_number, responses[cur_number])
     cur_number = tests[1].shift();
-    document.getElementById('fcn-output').innerText = tests[0][cur_number]
-    document.getElementById("input-text").value = "";
-    disable_next_button()
+    if (cur_number !== undefined) {
+        document.getElementById('fcn-output').innerText = tests[0][cur_number]
+        document.getElementById("input-text").value = "";
+        progress_number = progress_number + 0.1;
+        bar.animate(progress_number);  // Number from 0.0 to 1.0
+        disable_next_button()
+    } else {
+        //TODO record response to db
+        document.getElementById('fcn-output').innerText = "Thank you for taking the survey! <br/> Your response has been recorded."
+    }
+
 
 }
 
@@ -53,34 +77,44 @@ function disable_next_button() {
     }
 }
 
+
 //functions to generate d3 graphs
-function gen_1(){
+function gen_1() {
     return 1
 }
-function gen_2(){
+
+function gen_2() {
     return 2
 }
-function gen_3(){
+
+function gen_3() {
     return 3
 }
-function gen_4(){
+
+function gen_4() {
     return 4
 }
-function gen_5(){
+
+function gen_5() {
     return 5
 }
-function gen_6(){
+
+function gen_6() {
     return 6
 }
-function gen_7(){
+
+function gen_7() {
     return 7
 }
-function gen_8(){
+
+function gen_8() {
     return 8
 }
-function gen_9(){
+
+function gen_9() {
     return 9
 }
-function gen_10(){
+
+function gen_10() {
     return 10
 }
