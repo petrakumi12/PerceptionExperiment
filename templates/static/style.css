@@ -24,3 +24,9 @@ body {
     top: 55vh;
     z-index: -1;
 }
+
+.card {
+	postition: absolute;
+	left: 0;
+	top: 0;
+}
