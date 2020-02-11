@@ -3,10 +3,24 @@ body {
 }
 
 .card {
-    margin: 20vw;
+    margin: 15vw;
 }
 
 .btn {
     margin-left: 5em;
     margin-right: 5em;
+}
+
+#svg-div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+#gif {
+    position: absolute;
+    left: 35vw;
+    top: 55vh;
+    z-index: -1;
 }

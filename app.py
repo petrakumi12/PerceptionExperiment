@@ -17,7 +17,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/questions')
+@app.route('/questionPage')
 def questions():
     return render_template('questionPage.html')
 

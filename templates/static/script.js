@@ -1,30 +1,28 @@
 window.onload = function () {
+    gen_background()
     console.log(d3)
+    type_text()
 }
 
-console.log(d3.randomInt);
-var data = d3.range(10).map(() => {
-	return d3.randomInt(1, 101)();
-});
-console.log(data);
+function start_clicked() {
+    //have a post request here
+    console.log('start clicked')
+    window.location = "/questionPage";
+}
 
-//var tests = d3.range(10);
-var tests = [
-	() => console.log("Test 1"),
-	() => console.log("Test 2"),
-	() => console.log("Test 3"),
-	() => console.log("Test 4"),
-	() => console.log("Test 5"),
-	() => console.log("Test 6"),
-	() => console.log("Test 7"),
-	() => console.log("Test 8"),
-	() => console.log("Test 9"),
-	() => console.log("Test 10")
-]
-console.log("tests")
-tests.map((f) => f());
-console.log("shuffle")
-d3.shuffle(tests).map((f) => f())
 
-console.log("shuffle")
-d3.shuffle(tests).map((f) => f())
+function type_text() {
+    console.log("hi")
+    new Typed('#help-text', {
+        strings: [
+            '<i> Hello there, and thank you for deciding to take this survey!</i> ^200 <br><br>'+
+            'In this survey, you will be shown various data visualizations and will be prompted to '+
+            'input how much bigger one value is from the other. ^200 <br><br>'+
+            'Once you are sure of your answer, press next. ^200 <br><br>'+
+            'Once you press next, you will not be able to go back. <br>'
+        ],
+        typeSpeed: 10,
+        showCursor: false,
+
+    })
+}
