@@ -25,8 +25,14 @@ body {
     z-index: -1;
 }
 
-.card {
-	postition: absolute;
-	left: 0;
+.home-page-card {
+	position: absolute;
+	left: 0; 
 	top: 0;
+	width: 50vw;
+	text-align: center;
+	margin-left: 25vw;
+	margin-right: 25vw;
+	margin-top: 25vh;
+	margin-bottom: 25vh;
 }

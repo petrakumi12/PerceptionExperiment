@@ -3,6 +3,8 @@ let cur_number = null;
 let bar = null;
 let progress_number = 0;
 let responses = {};
+let current_test = -1;
+let num_tests = 10;
 
 window.onload = function () {
     disable_next_button();
@@ -27,6 +29,7 @@ window.onload = function () {
             bar.path.setAttribute('stroke', state.color);
         }
     });
+		disable_back_button()
     next()
 };
 
@@ -50,16 +53,47 @@ function load_test_vars() {
 }
 
 function next() {
-    cur_number = tests[1].shift();
-    console.log('number', cur_number);
-    if (cur_number !== undefined) {
-        responses[cur_number] = document.getElementById("input-text").value;
-        console.log('response', cur_number, responses[cur_number])
+		current_test += 1
+    if (current_test < num_tests) {
+      responses[cur_number] = document.getElementById("input-text").value;
+
+			cur_number = tests[1][current_test];
+
+      document.getElementById('fcn-output').innerText = tests[0][cur_number]
+      if (responses[cur_number] !== undefined) {
+				document.getElementById("input-text").value = responses[cur_number];
+			} else {
+				document.getElementById("input-text").value = ""
+			}
+
+      progress_number = progress_number + 0.1;
+      bar.animate(progress_number);  // Number from 0.0 to 1.0
+
+      disable_next_button()
+			disable_back_button()
+    } else {
+        //TODO record response to db
+        document.getElementById("content-column").innerHTML = "<div id=\"fcn-output\"></div>";
+        document.getElementById('fcn-output').innerHTML = "Thank you for taking the survey! <br/> Your response has been recorded.";
+        document.getElementById('gif').innerHTML = "<img src='static/img/giphy (1).gif'>";
+        console.log("final response dict", responses)
+    }
+
+
+}
+
+function back() {
+    if (current_test > 0) {
+				responses[cur_number] = document.getElementById("input-text").value;
+				current_test -= 1
+				cur_number = tests[1][current_test];
         document.getElementById('fcn-output').innerText = tests[0][cur_number]
-        document.getElementById("input-text").value = "";
-        progress_number = progress_number + 0.1;
+				console.log(responses[cur_number], cur_number, responses)
+        document.getElementById("input-text").value = responses[cur_number];
+        progress_number = progress_number - 0.1;
         bar.animate(progress_number);  // Number from 0.0 to 1.0
-        disable_next_button()
+				disable_next_button()
+        disable_back_button()
     } else {
         //TODO record response to db
         document.getElementById("content-column").innerHTML = "<div id=\"fcn-output\"></div>";
@@ -79,6 +113,15 @@ function disable_next_button() {
         document.getElementById('next-btn').setAttribute("disabled", null);
     }
 }
+
+function disable_back_button() {
+    if (current_test > 0) {
+        document.getElementById('back-btn').removeAttribute("disabled");
+    } else {
+        document.getElementById('back-btn').setAttribute("disabled", null);
+    }
+}
+
 
 
 //functions to generate d3 graphs
