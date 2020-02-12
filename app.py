@@ -14,7 +14,7 @@ db_collection = mongo.db.perceptionExperiment
 ## routing endpoints
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template("temp.html")
 
 
 @app.route('/questionPage')
