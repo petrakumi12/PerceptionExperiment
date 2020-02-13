@@ -19,8 +19,8 @@ var appleWatch = () => {
 	}
 	chosenOne[1] = chosenOne[0]+1
 
-console.log("HELLO THERE", d3.select("#fcn-output"))
-	var svg = d3.select("#fcn-output").append("svg")
+console.log("HELLO THERE",  d3.select(".graph"))
+	var svg = d3.select(".graph").append("svg")
 		.attr("width", width)
 		.attr("height", height)
 	svg.selectAll("g")

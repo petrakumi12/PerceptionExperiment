@@ -22,7 +22,7 @@ var smallMultiples = () => {
 	  return d3.arc().innerRadius(radius).outerRadius(radius);
 	}
 
-	var svg = d3.select("body")
+	var svg = d3.select(".graph")
 		.append("div").attr("id", "smallMultiplesDiv")
 		.selectAll("svg")
 	      .data(data)

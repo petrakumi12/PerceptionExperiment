@@ -52,16 +52,16 @@ function enter_button_listener() {
 function load_test_vars() {
     //var tests = d3.range(10);
     let tests = {
-        1: gen_1(),
-        2: gen_2(),
-        3: gen_3(),
-        4: gen_4(),
-        5: gen_5(),
-        6: gen_6(),
-        7: gen_7(),
-        8: gen_8(),
-        9: gen_9(),
-        10: gen_10()
+        1: gen_1,
+        2: gen_2,
+        3: gen_3,
+        4: gen_4,
+        5: gen_5,
+        6: gen_6,
+        7: gen_7,
+        8: gen_8,
+        9: gen_9,
+        10: gen_10
     };
     let shuffled = d3.shuffle(Object.keys(tests)).map((f) => f)
     return [tests, shuffled]
@@ -74,7 +74,7 @@ function next() {
 
 			cur_number = tests[1][current_test];
 
-      document.getElementById('fcn-output').innerText = tests[0][cur_number]
+			tests[0][cur_number]()()
       if (responses[cur_number] !== undefined) {
 				document.getElementById("input-text").value = responses[cur_number];
 			} else {
@@ -102,7 +102,7 @@ function back() {
 				responses[cur_number] = document.getElementById("input-text").value;
 				current_test -= 1
 				cur_number = tests[1][current_test];
-        document.getElementById('fcn-output').innerText = tests[0][cur_number]
+				tests[0][cur_number]()()
 				console.log(responses[cur_number], cur_number, responses)
         document.getElementById("input-text").value = responses[cur_number];
         progress_number = progress_number - 0.1;
@@ -142,42 +142,42 @@ function disable_back_button() {
 //functions to generate d3 graphs
 function gen_1() {
     appleWatch()
-	return 1
+	return function() {return 1}
 }
 
 function gen_2() {
     smallMultiples()
-	return 2
+	return () => 2
 }
 
 function gen_3() {
-    return 3
+    return () => {return 3}
 }
 
 function gen_4() {
-    return 4
+    return () => 4
 }
 
 function gen_5() {
-    return 5
+    return () => 5
 }
 
 function gen_6() {
-    return 6
+    return () => 6
 }
 
 function gen_7() {
-    return 7
+    return () => 7
 }
 
 function gen_8() {
-    return 8
+    return () => 8
 }
 
 function gen_9() {
-    return 9
+    return () => 9
 }
 
 function gen_10() {
-    return 10
+    return () => 10
 }
