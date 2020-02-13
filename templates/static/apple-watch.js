@@ -5,9 +5,11 @@ var appleWatch = () => {
 	data = data.map((d, i) => {return [d+1, 99 - d, i]});
 	//.sort((a, b) => {return a-b})
 	
-	var margin = {top: 8, right: 10, bottom: 2, left: 10},
-		  width = 960 - margin.left - margin.right,
-		  height = 500 - margin.top - margin.bottom;
+var selection = d3.select(".graph").node().getBoundingClientRect()
+	console.log("WE", selection)
+	var margin = {top: 80, right: 30, bottom: 10, left: 30},
+		  width = selection.width - margin.left - margin.right,
+		  height = 400 - margin.top - margin.bottom;
 	
 	let pie = d3.pie()
 		.sort(null)
@@ -34,8 +36,8 @@ var appleWatch = () => {
             }
             return "lame"
         })
-        .attr("transform", "translate(" + (margin.left + width / 2) + "," +
-            (margin.top + height / 2) + ")")
+        .attr("transform", "translate(" + (width / 2) + "," +
+            (height / 2) + ")")
         .selectAll("path")
         .data(d => {
             let p = pie(d.slice(0, 2))
