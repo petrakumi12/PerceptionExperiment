@@ -1,20 +1,13 @@
 function bar_chart() {
     let margin = {top: 80, right: 30, bottom: 10, left: 30},
-        width = window.innerWidth - margin.left - margin.right,
-        height = window.innerHeight - margin.top - margin.bottom;
+        width = window.innerWidth * 0.6 - margin.left - margin.right,
+        height = window.innerHeight * 0.4 - margin.top - margin.bottom;
 
     let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(100)));
 
     console.log("data is", data)
 
-    let svg = d3.select("body").append("svg")
-
-    let colors = {
-        1: "#550000",
-        2: "#005500",
-        3: "#000055",
-        4: "#000000"
-    };
+    let svg = d3.select(".graph").append("svg");
 
     svg.attr("class", "plt_background")
         .attr("width", width + margin.left + margin.right)
@@ -55,21 +48,36 @@ function bar_chart() {
         .attr("y", function (d) {
             return y(d);
         })
-        .attr("transform", "translate(" + margin.left + "," + 0 + ")")
+        .attr("transform", "translate(" + (1 + margin.left) + "," + 0 + ")")
         .attr("width", ((width - margin.left - margin.right) / 10) - 10)
         .attr("height", function (d) {
             return height - y(d);
-        });
+        })
+        .attr('fill-opacity', 0)
+        .attr('stroke', 'black')
+        .attr('');
 
+    svg.selectAll('.marker')
+        .data(generate_marker_pos())
+        .enter().append('circle')
+        .attr('cx', function (d) {
+            rect_width = d3.select('.bar').node().getBoundingClientRect().width
+            console.log(rect_width)
+            return (d * (rect_width) + (d-1)*10 - (rect_width/2))
+        })
+        .attr('cy', height + margin.bottom)
+        .attr("transform", "translate(" + (margin.left) + "," + 0 + ")")
+
+        .attr('r', 5)
 
 }
 
-window.onload = function () {
-    bar_chart();
-
+function generate_marker_pos() {
+    let markers = [];
+    markers[0] = Math.floor(Math.random() * Math.floor(9))+1;
+    markers[1] = markers[0]+1;
+    console.log(markers)
+    return markers
 }
-
-
-
 
 

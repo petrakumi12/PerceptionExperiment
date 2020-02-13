@@ -14,50 +14,52 @@ var appleWatch = () => {
 		.value(d => d);
 
 	let chosenOne = [10,10]
-	while (chosenOne[0] === 10 || chosenOne[0] == 9) {
+	while (chosenOne[0] === 10 || chosenOne[0] === 9) {
 		chosenOne[0] = Math.floor(Math.random() * 10)
 	}
 	chosenOne[1] = chosenOne[0]+1
 
-console.log("HELLO THERE",  d3.select(".graph"))
-	var svg = d3.select(".graph").append("svg")
-		.attr("width", width)
-		.attr("height", height)
-	svg.selectAll("g")
-		.data(data)
-		.enter().append("g")
-			.attr("class", d => {
-				//console.log("dd", d)
-				if (d !== undefined && (d[2] === chosenOne[0] || d[2] === chosenOne[1])) {
-					console.log("You were the chosen one, Anakin!", chosenOne, d[2])
-					return "chosenOne"
-				}
-				return "lame"
-			})
-			.attr("transform", "translate(" + (margin.left + width / 2) + "," + 
-					(margin.top + height / 2) + ")")
-			.selectAll("path")
-			.data(d => {
-				let p = pie(d.slice(0,2))
-				p.map(x => {x.pieIndex = d[2]})
-				return p
-			})
-			.join("path")
-				.attr("fill", d => {
-					if (d.index === 0) return "#000000"
-					else return "#CCCCCC"
-				})
-				.attr("stroke", d => {
-					//console.log(d)
-					if (d.index === 0) return "#CCCCCC"
-					else return "#CCCCCC"
-				})
-				.attr("d", d => {
-					let t = d3.arc()
-						.innerRadius(10 + 10*d.pieIndex)
-						.outerRadius(20+10*d.pieIndex)
-					return t(d)
-				})
+    console.log("HELLO THERE",  d3.select(".graph"))
+    var svg = d3.select(".graph").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+    svg.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("class", d => {
+            //console.log("dd", d)
+            if (d !== undefined && (d[2] === chosenOne[0] || d[2] === chosenOne[1])) {
+                console.log("You were the chosen one, Anakin!", chosenOne, d[2])
+                return "chosenOne"
+            }
+            return "lame"
+        })
+        .attr("transform", "translate(" + (margin.left + width / 2) + "," +
+            (margin.top + height / 2) + ")")
+        .selectAll("path")
+        .data(d => {
+            let p = pie(d.slice(0, 2))
+            p.map(x => {
+                x.pieIndex = d[2]
+            })
+            return p
+        })
+        .join("path")
+        .attr("fill", d => {
+            if (d.index === 0) return "#000000"
+            else return "#CCCCCC"
+        })
+        .attr("stroke", d => {
+            //console.log(d)
+            if (d.index === 0) return "#CCCCCC"
+            else return "#CCCCCC"
+        })
+        .attr("d", d => {
+            let t = d3.arc()
+                .innerRadius(10 + 10 * d.pieIndex)
+                .outerRadius(20 + 10 * d.pieIndex)
+            return t(d)
+        })
 
 	//console.log("You were the chosen one Anakin!", chosenOne)
 

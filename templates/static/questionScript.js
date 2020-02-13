@@ -63,11 +63,12 @@ function load_test_vars() {
         9: gen_9,
         10: gen_10
     };
-    let shuffled = d3.shuffle(Object.keys(tests)).map((f) => f)
+    let shuffled = d3.shuffle(Object.keys(tests)).map((f) => f);
     return [tests, shuffled]
 }
 
 function next() {
+    document.getElementById('fcn-output').innerHTML = '';
 		current_test += 1
     if (current_test < num_tests) {
       responses[cur_number] = document.getElementById("input-text").value;
@@ -84,7 +85,7 @@ function next() {
       progress_number = progress_number + 0.1;
       bar.animate(progress_number);  // Number from 0.0 to 1.0
 
-      disable_next_button()
+      disable_next_button();
 			disable_back_button()
     } else {
         //TODO record response to db
@@ -138,19 +139,19 @@ function disable_back_button() {
 }
 
 
-
 //functions to generate d3 graphs
 function gen_1() {
-    appleWatch()
-	return function() {return 1}
+    appleWatch();
+    return function() {return 1}
 }
 
 function gen_2() {
-    smallMultiples()
+    smallMultiples();
 	return () => 2
 }
 
 function gen_3() {
+    bar_chart();
     return () => {return 3}
 }
 

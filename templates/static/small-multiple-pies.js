@@ -5,7 +5,7 @@ var smallMultiples = () => {
 	let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(99)));
 	data = data.map((d, i) => {return [d+1, 99 - d, i]});
 
-	var margin = {top: 8, right: 10, bottom: 2, left: 10},
+	let margin = {top: 8, right: 10, bottom: 2, left: 10},
 	    width = 69 - margin.left - margin.right,
 	    height = 500 - margin.top - margin.bottom;
 	
@@ -35,13 +35,10 @@ var smallMultiples = () => {
 						(margin.top + height / 2) + ")")
 				.selectAll("path")
 				.data((d, i) => {
-					//console.log("AGDIAHGUD", d.slice(0,2))
 					let p = pie(d.slice(0,2))
-					//console.log(p[0])
 					p.map((x) => {
 						x["pieIndex"] = i
 					})
-					//console.log(p)
 					return p
 				})
 				.join("path")
