@@ -2,7 +2,18 @@ let tests = load_test_vars();
 let cur_number = null;
 let bar = null;
 let progress_number = 0;
-let responses = {};
+let responses = {
+	1: {'truth': undefined, 'guess': undefined},
+	2: {'truth': undefined, 'guess': undefined},
+	3: {'truth': undefined, 'guess': undefined},
+	4: {'truth': undefined, 'guess': undefined},
+	5: {'truth': undefined, 'guess': undefined},
+	6: {'truth': undefined, 'guess': undefined},
+	7: {'truth': undefined, 'guess': undefined},
+	8: {'truth': undefined, 'guess': undefined},
+	9: {'truth': undefined, 'guess': undefined},
+	10: {'truth': undefined, 'guess': undefined}
+};
 let current_test = -1;
 let num_tests = 10;
 
@@ -69,15 +80,23 @@ function load_test_vars() {
 
 function next() {
     document.getElementById('fcn-output').innerHTML = '';
+		if (responses[cur_number] !== undefined) {
+			cur_number = tests[1][current_test];
+      responses[cur_number].guess = document.getElementById("input-text").value;
+		}
 		current_test += 1
     if (current_test < num_tests) {
-      responses[cur_number] = document.getElementById("input-text").value;
 
 			cur_number = tests[1][current_test];
+			console.log("returennn", cur_number, responses)
 
-			tests[0][cur_number]()()
-      if (responses[cur_number] !== undefined) {
-				document.getElementById("input-text").value = responses[cur_number];
+			var trueResponse = tests[0][cur_number]()()
+			var minimum = Math.min(trueResponse[0], trueResponse[1])
+			var maximum = Math.max(trueResponse[0], trueResponse[1])
+			console.log("truTH", minimum / maximum, trueResponse)
+				responses[cur_number].truth
+      if (responses[cur_number].guess !== undefined) {
+				document.getElementById("input-text").value = responses[cur_number].guess;
 			} else {
 				document.getElementById("input-text").value = ""
 			}
@@ -99,13 +118,14 @@ function next() {
 }
 
 function back() {
+    document.getElementById('fcn-output').innerHTML = '';
     if (current_test > 0) {
-				responses[cur_number] = document.getElementById("input-text").value;
+				responses[cur_number].guess = document.getElementById("input-text").value;
 				current_test -= 1
 				cur_number = tests[1][current_test];
 				tests[0][cur_number]()()
 				console.log(responses[cur_number], cur_number, responses)
-        document.getElementById("input-text").value = responses[cur_number];
+        document.getElementById("input-text").value = responses[cur_number].guess;
         progress_number = progress_number - 0.1;
         bar.animate(progress_number);  // Number from 0.0 to 1.0
 				disable_next_button()
@@ -141,42 +161,39 @@ function disable_back_button() {
 
 //functions to generate d3 graphs
 function gen_1() {
-    appleWatch();
-    return function() {return 1}
+    return appleWatch 
 }
 
 function gen_2() {
-    smallMultiples();
-	return () => 2
+	return smallMultiples
 }
 
 function gen_3() {
-    bar_chart();
-    return () => {return 3}
+    return bar_chart
 }
 
 function gen_4() {
-    return () => 4
+    return appleWatch
 }
 
 function gen_5() {
-    return () => 5
+    return smallMultiples
 }
 
 function gen_6() {
-    return () => 6
+    return bar_chart
 }
 
 function gen_7() {
-    return () => 7
+    return appleWatch
 }
 
 function gen_8() {
-    return () => 8
+    return smallMultiples
 }
 
 function gen_9() {
-    return () => 9
+    return bar_chart
 }
 
 function gen_10() {

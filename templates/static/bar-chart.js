@@ -57,8 +57,10 @@ function bar_chart() {
         .attr('stroke', 'black')
         .attr('');
 
+		var marker_pos = generate_marker_pos()
+
     svg.selectAll('.marker')
-        .data(generate_marker_pos())
+        .data(marker_pos)
         .enter().append('circle')
         .attr('cx', function (d) {
             rect_width = d3.select('.bar').node().getBoundingClientRect().width
@@ -69,6 +71,8 @@ function bar_chart() {
         .attr("transform", "translate(" + (margin.left) + "," + 0 + ")")
 
         .attr('r', 5)
+	
+		return [data[marker_pos[0]], data[marker_pos[1]]]
 
 }
 

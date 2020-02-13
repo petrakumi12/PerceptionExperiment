@@ -86,5 +86,6 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 					if (d.data > 95) return "#FFFFFF"
 					else return "#000000"
 				})
-
+	
+	return [data[chosenOne[0]][0], data[chosenOne[1]][0]]
 }
