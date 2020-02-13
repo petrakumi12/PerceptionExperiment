@@ -8,6 +8,7 @@ let num_tests = 10;
 
 window.onload = function () {
     disable_next_button();
+    enter_button_listener();
     for (let val of tests[1]) {
         console.log('a', tests[0][val])
     }
@@ -33,6 +34,20 @@ window.onload = function () {
     next()
 };
 
+function enter_button_listener() {
+    let input = document.getElementById('input-text');
+    // Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            console.log("hereeee")
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById('next-btn').click();
+        }
+    });
+}
 
 function load_test_vars() {
     //var tests = d3.range(10);
