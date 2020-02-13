@@ -126,11 +126,13 @@ function disable_back_button() {
 
 //functions to generate d3 graphs
 function gen_1() {
-    return 1
+    appleWatch()
+	return 1
 }
 
 function gen_2() {
-    return 2
+    smallMultiples()
+	return 2
 }
 
 function gen_3() {
