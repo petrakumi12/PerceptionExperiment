@@ -5,7 +5,7 @@ function bar_chart() {
 
     let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(100)));
 
-    console.log("data is", data)
+    console.log("data is", data);
 
     let svg = d3.select(".graph").append("svg");
 
