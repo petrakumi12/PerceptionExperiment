@@ -1,9 +1,11 @@
-function bar_chart() {
+function bar_chart(data=null, marker_pos=null) {
     let margin = {top: 40, right: 30, bottom: 40, left: 85},
         width = window.innerWidth * 0.6 - margin.left - margin.right,
         height = window.innerHeight * 0.4 - margin.top - margin.bottom;
 
-    let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(100)));
+    if (data === null) {
+			data = d3.range(10).map(() => 1 + Math.floor(Math.random() * Math.floor(99)))
+		}
 
     console.log("data is", data);
 
@@ -60,7 +62,7 @@ function bar_chart() {
         .style("stroke-width", "2px")
         .attr('');
 
-		var marker_pos = generate_marker_pos()
+		if (marker_pos === null) marker_pos = generate_marker_pos()
 
     svg.selectAll('.marker')
         .data(marker_pos)
@@ -74,7 +76,7 @@ function bar_chart() {
         .attr("transform", "translate(" + (margin.left) + "," + margin.bottom/2 + ")")
         .attr('r', 5)
 	
-		return [data[marker_pos[0]], data[marker_pos[1]]]
+		return [data[marker_pos[0]-1], data[marker_pos[1]-1], data, marker_pos]
 
 }
 

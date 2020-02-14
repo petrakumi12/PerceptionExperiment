@@ -1,9 +1,11 @@
-function pie_chart() {
+function pie_chart(data=null, marker_pos=null) {
     let margin = 40,
         width = window.innerWidth * 0.6 - margin,
         height = window.innerHeight * 0.4- margin;
 
-    let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(99))+1);
+	if (data === null) {
+			data = d3.range(10).map(() => 1 + Math.floor(Math.random() * Math.floor(99)))
+		}
     data.sort(function (a, b) {
         return b - a
     });
@@ -40,24 +42,24 @@ function pie_chart() {
         .attr('stroke', 'black')
         .style("stroke-width", "2px");
 
-	var marker_pos = generate_marker_pos()
+	if (marker_pos === null) marker_pos = generate_marker_pos()
 
     svg
         .selectAll('circle')
         .data(marker_pos)
         .enter().append('circle')
         .attr('cx', function (d) {
-            return mark_radius * Math.cos((-Math.PI / 2) + get_marker_pos(d, data))
+            return mark_radius * Math.cos((-Math.PI / 2) + get_physical_pos(d, data))
         })
         .attr('cy', function (d) {
-            return mark_radius * Math.sin((-Math.PI / 2) + get_marker_pos(d, data))
+            return mark_radius * Math.sin((-Math.PI / 2) + get_physical_pos(d, data))
         })
         .attr('r', 4)
 
-	return [data[marker_pos[0]], data[marker_pos[1]]]
+	return [data[marker_pos[0]-1], data[marker_pos[1]-1], data, marker_pos]
 }
 
-function get_marker_pos(d, data) {
+function get_physical_pos(d, data) {
 
     let increment = data.reduce((a, b) => a + b, 0)/100
     console.log('increment', increment)

@@ -3,18 +3,18 @@ let cur_number = null;
 let bar = null;
 let progress_number = 0;
 let responses = {
-    1: {'truth': undefined, 'guess': undefined},
-    2: {'truth': undefined, 'guess': undefined},
-    3: {'truth': undefined, 'guess': undefined},
-    4: {'truth': undefined, 'guess': undefined},
-    5: {'truth': undefined, 'guess': undefined},
-    6: {'truth': undefined, 'guess': undefined},
-    7: {'truth': undefined, 'guess': undefined},
-    8: {'truth': undefined, 'guess': undefined},
-    9: {'truth': undefined, 'guess': undefined},
-    10: {'truth': undefined, 'guess': undefined},
-    11: {'truth': undefined, 'guess': undefined},
-    12: {'truth': undefined, 'guess': undefined}
+		1:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    2:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    3:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    4:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    5:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    6:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    7:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    8:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    9:  {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    10: {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    11: {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined},
+    12: {'truth': undefined, 'guess': undefined, 'data':undefined, 'markers': undefined}
 };
 let current_test = -1;
 let num_tests = 12;
@@ -93,12 +93,26 @@ function next() {
 
         cur_number = tests[1][current_test];
 			//console.log("returennn", cur_number, responses)
+				var trueResponse = null
+        if (responses[cur_number].data !== undefined) {
+					var markers = responses[cur_number].markers
+					if (markers !== undefined) {
+						trueResponse = tests[0][cur_number]()(responses[cur_number].data, markers)
+					}
+					else {
+						trueResponse = tests[0][cur_number]()(responses[cur_number].data)
+					}
+        } else {
+					trueResponse = tests[0][cur_number]()()
+        }
 
-        var trueResponse = tests[0][cur_number]()()
 			var minimum = Math.min(trueResponse[0], trueResponse[1])
 			var maximum = Math.max(trueResponse[0], trueResponse[1])
-				console.log("truTH", minimum / maximum, trueResponse)
+				console.log("truTH", minimum, maximum, minimum / maximum, trueResponse)
 				responses[cur_number].truth = 100 * minimum / maximum
+			responses[cur_number].data = trueResponse[2]
+			responses[cur_number].markers = trueResponse[3]
+
         if (responses[cur_number].guess !== undefined) {
             document.getElementById("input-text").value = responses[cur_number].guess;
         } else {
@@ -127,9 +141,19 @@ function back() {
         responses[cur_number].guess = document.getElementById("input-text").value;
         current_test -= 1
         cur_number = tests[1][current_test];
-        tests[0][cur_number]()()
         console.log(responses[cur_number], cur_number, responses)
         document.getElementById("input-text").value = responses[cur_number].guess;
+				if (responses[cur_number].data !== undefined) {
+					var markers = responses[cur_number].markers
+					if (markers !== undefined) {
+						trueResponse = tests[0][cur_number]()(responses[cur_number].data, markers)
+					}
+					else {
+						trueResponse = tests[0][cur_number]()(responses[cur_number].data)
+					}
+        } else {
+					trueResponse = tests[0][cur_number]()()
+        }
         progress_number = progress_number - (1.0 / 12.0);
         bar.animate(progress_number);  // Number from 0.0 to 1.0
         disable_next_button()

@@ -1,8 +1,10 @@
-var appleWatch = () => {
+var appleWatch = (data=null, chosenOne=null) => {
 	// if 0-100 is exclusive, change this to 98 and add 1 in order to get a range of
 	// 1-99
-	let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(99)));
-	data = data.map((d, i) => {return [d+1, 99 - d, i]});
+	if (data === null) {
+			data = d3.range(10).map(() => 1 + Math.floor(Math.random() * Math.floor(99)))
+			data = data.map((d, i) => {return [d, 100 - d, i]});
+		}
 	//.sort((a, b) => {return a-b})
 	
 var selection = d3.select(".graph").node().getBoundingClientRect()
@@ -14,11 +16,13 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 		.sort(null)
 		.value(d => d);
 
-	let chosenOne = [10,10]
-	while (chosenOne[0] === 10 || chosenOne[0] === 9) {
-		chosenOne[0] = Math.floor(Math.random() * 10)
+	if (chosenOne === null) {
+		chosenOne = [10,10]
+		while (chosenOne[0] === 10 || chosenOne[0] === 9) {
+			chosenOne[0] = Math.floor(Math.random() * 10)
+		}
+		chosenOne[1] = chosenOne[0]+1
 	}
-	chosenOne[1] = chosenOne[0]+1
 
     var svg = d3.select(".graph").append("svg")
         .attr("width", width)
@@ -79,6 +83,5 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 				})
 	
 
-	console.log("HI PETRA", [data[chosenOne[0]][0], data[chosenOne[0]][0]])
-	return [data[chosenOne[0]][0], data[chosenOne[1]][0]]
+	return [data[chosenOne[0]][0], data[chosenOne[1]][0], data, chosenOne]
 }

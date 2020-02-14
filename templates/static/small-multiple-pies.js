@@ -1,11 +1,14 @@
-var smallMultiples = () => {
+var smallMultiples = (data=null, marker_pos=null) => {
     //console.log("WE ARE HERE")
     // if 0-100 is exclusive, change this to 98 and add 1 in order to get a range of
     // 1-99
-    let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(99)));
-    data = data.map((d, i) => {
+	if (data === null) {
+			data = d3.range(10).map(() => 1 + Math.floor(Math.random() * Math.floor(99)))
+			data = data.map((d, i) => {
         return [d + 1, 99 - d, i]
     });
+		}
+    
 
 
     let margin = {top: 8, right: 10, bottom: 20, left: 10},
@@ -58,7 +61,7 @@ var smallMultiples = () => {
         .attr("d", arc)
         .style("stroke-width", "2px");
 
-	var marker_pos = generate_marker_pos()
+	if (marker_pos === null) marker_pos = generate_marker_pos()
 
     d3.select(".graph")
         .append('svg')
@@ -77,5 +80,5 @@ var smallMultiples = () => {
         .attr("transform", "translate(" + (width / 12) + "0)")
         .attr('r', 4)
 
-	return [data[marker_pos[0]], data[marker_pos[1]]]
+	return [data[marker_pos[0]-1][0], data[marker_pos[1]-1][0], data, marker_pos]
 }
