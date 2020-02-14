@@ -18,6 +18,7 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
+    <script src="static/bar-chart.js"></script>
 </head>
 <body>
 <script type="text/javascript" src="static/apple-watch.js"></script>
@@ -33,7 +34,7 @@
         <div class="col text-center" id="content-column">
             <div class="row text-center mx-3" style="color: #6C757D">What percentage is the smaller of the larger?</div>
             <div id="fcn-output" class="graph"></div>
-            <input class="form-control" type="text" placeholder="Default input" id="input-text">
+            <input class="form-control" type="number" min="0" max="100" placeholder="Default input" id="input-text">
             <button type="button" class="btn btn-info mt-3" id='back-btn'
                     onclick="back()">Back
             </button>
