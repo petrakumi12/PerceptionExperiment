@@ -3,11 +3,10 @@ function pie_chart() {
         width = window.innerWidth * 0.6 - margin,
         height = window.innerHeight * 0.4- margin;
 
-    let data = generate(100, 10)
+    let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(99))+1);
     data.sort(function (a, b) {
         return b - a
     });
-
 
     console.log("data is", data);
 
@@ -23,6 +22,7 @@ function pie_chart() {
 
     let pie = d3.pie()
         .value(function (d) {
+            console.log('aaaa', d.value)
             return d.value;
         });
     let data_ready = pie(d3.entries(data))
@@ -58,11 +58,15 @@ function pie_chart() {
 }
 
 function get_marker_pos(d, data) {
-    sum = 0;
+
+    let increment = data.reduce((a, b) => a + b, 0)/100
+    console.log('increment', increment)
+    let sum = 0;
+
     for (let i = 0; i < d; i++) {
-        sum = sum + data[i]
+        sum = sum + data[i] / increment
     }
-    return (Math.PI / 50) * sum - (Math.PI / 50) * data[d - 1] / 2
+    return (Math.PI / 50) * sum - (Math.PI / 50) * data[d - 1] / (2*increment)
 }
 
 //from this stackoverlfow post
