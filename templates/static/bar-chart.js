@@ -3,7 +3,7 @@ function bar_chart() {
         width = window.innerWidth * 0.6 - margin.left - margin.right,
         height = window.innerHeight * 0.4 - margin.top - margin.bottom;
 
-    let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(100)));
+    let data = d3.range(10).map(() => Math.floor(Math.random() * Math.floor(99)+1));
 
     console.log("data is", data);
 

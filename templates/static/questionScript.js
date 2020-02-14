@@ -91,6 +91,9 @@ function next() {
     }
     current_test += 1
     if (current_test < num_tests) {
+        if (current_test === num_tests - 1) {
+            document.getElementById('next-btn').innerText = "Finish"
+        }
 
         cur_number = tests[1][current_test];
         console.log("returennn", cur_number, responses)

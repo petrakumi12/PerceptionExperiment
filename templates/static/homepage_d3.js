@@ -49,17 +49,18 @@ function gen_background() {
         .attr("fill", "#307891")
         .attr("fill-opacity", 0.6)
         .attr("stroke", "#1b3445")
+        .attr('stroke-width', 2)
         .attr("stroke-opacity", 0.6)
 
 
     d3.timer(function () {
         let delta = (Date.now() - t0);
         svg.selectAll(".background-viz").attr("transform", function () {
-            return  "translate(" + window.innerWidth + "," + window.innerHeight + ")" + "rotate(" + delta * 0.01 + ")";
+            return "translate(" + window.innerWidth + "," + window.innerHeight + ")" + "rotate(" + delta * 0.01 + ")";
         });
     });
 
-        setTimeout(function () {
+    setTimeout(function () {
         svg
             .append("path")
             .attr("class", 'background-viz2')
@@ -67,6 +68,7 @@ function gen_background() {
             .attr("fill", "#cecece")
             .attr("fill-opacity", 0)
             .attr("stroke", "#0e2a2b")
+            .attr('stroke-width', 2)
             .attr("stroke-opacity", 0)
             .transition()
             .duration(200)
@@ -74,13 +76,12 @@ function gen_background() {
             .attr("stroke-opacity", 0.6)
 
 
-
         d3.timer(function () {
             let delta = (Date.now() - t0);
             svg.selectAll(".background-viz2")
                 .attr("transform", function () {
-                return "translate(" + window.innerWidth + "," + window.innerHeight + ")" + "rotate(" + delta * -0.02 + ")";
-            });
+                    return "translate(" + window.innerWidth + "," + window.innerHeight + ")" + "rotate(" + delta * -0.02 + ")";
+                });
         });
     }, 500)
 
