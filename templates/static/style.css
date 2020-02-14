@@ -49,3 +49,21 @@ body {
 	margin-top: 25vh;
 	margin-bottom: 25vh;
 }
+
+#help-text {
+    margin-top: 5em;
+    margin-left: 4em;
+    font-size: 1.5em;
+    color: #153540;
+}
+
+#start-btn {
+    position: absolute;
+    top: 60vh;
+    height: 10vh;
+    width: 30vw;
+    background-color: #2a6b81;
+    border: solid #153540;
+    font-size: 1.3em;
+    margin-left: 4em;
+}

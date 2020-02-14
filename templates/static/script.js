@@ -16,10 +16,10 @@ function type_text() {
     new Typed('#help-text', {
         strings: [
             '<i> Hello there, and thank you for deciding to take this survey!</i> ^200 <br><br>'+
-            'In this survey, you will be shown various data visualizations and will be prompted to '+
-            'input how much bigger one value is from the other. ^200 <br><br>'+
-            'Once you are sure of your answer, press next. ^200 <br><br>'+
-            'Once you press next, you will not be able to go back. <br>'
+            'In this survey, you will be shown various graphs and will be prompted to '+
+            'input what percentage the smaller value is from the bigger. ^200 <br><br>'+
+            'Once you are sure of your answer, press Next. ^200 <br><br>'+
+            'You are able to go back any time to change your answer, until you press Next on the final question.<br>'
         ],
         typeSpeed: 10,
         showCursor: false,
