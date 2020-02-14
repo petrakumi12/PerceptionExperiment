@@ -7,7 +7,7 @@ var appleWatch = () => {
 	
 var selection = d3.select(".graph").node().getBoundingClientRect()
 	console.log("WE", selection)
-	var margin = {top: 80, right: 30, bottom: 10, left: 30},
+	var margin = {top: 40, right: 30, bottom: 10, left: 30},
 		  width = selection.width - margin.left - margin.right,
 		  height = 400 - margin.top - margin.bottom;
 	
@@ -21,7 +21,7 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 	}
 	chosenOne[1] = chosenOne[0]+1
 
-    console.log("HELLO THERE",  d3.select(".graph"))
+    // console.log("HELLO THERE",  d3.select(".graph"))
     var svg = d3.select(".graph").append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -36,8 +36,7 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
             }
             return "lame"
         })
-        .attr("transform", "translate(" + (width / 2) + "," +
-            (height / 2) + ")")
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ") scale(1.3)")
         .selectAll("path")
         .data(d => {
             let p = pie(d.slice(0, 2))

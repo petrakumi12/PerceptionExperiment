@@ -32,11 +32,11 @@ var smallMultiples = () => {
         .enter().append("svg")
         .attr("class", 'svg-class')
         .attr("width", width / 6)
-        .attr("height", height / 4)
+        .attr("height", height / 3)
         .append("g")
         .attr("class", "smallMultiples")
         .attr("transform", "translate(" + (width / 12) + "," +
-            (height / 8) + ")")
+            (height / 6) + ")")
         .selectAll("path")
         .data((d, i) => {
             let p = pie(d.slice(0, 2))
@@ -56,6 +56,8 @@ var smallMultiples = () => {
             else {return "#CCCCCC"}
         })
         .attr("d", arc)
+        .style("stroke-width", "2px");
+
 
 
     d3.select(".graph")
@@ -71,7 +73,7 @@ var smallMultiples = () => {
             let pie_width = d3.select('.svg-class').node().getBoundingClientRect().width
             return (d-1) * (pie_width+2)
         })
-        .attr('cy', 10)
+        .attr('cy', 5)
         .attr("transform", "translate(" + (width / 12) + "0)")
         .attr('r', 4)
 

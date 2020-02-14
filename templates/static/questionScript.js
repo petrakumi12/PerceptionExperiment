@@ -41,7 +41,7 @@ window.onload = function () {
             bar.path.setAttribute('stroke', state.color);
         }
     });
-		disable_back_button()
+    disable_back_button()
     next()
 };
 
@@ -72,7 +72,9 @@ function load_test_vars() {
         7: gen_7,
         8: gen_8,
         9: gen_9,
-        10: gen_10
+        10: gen_10,
+        11: gen_11,
+        12: gen_12
     };
     let shuffled = d3.shuffle(Object.keys(tests)).map((f) => f);
     return [tests, shuffled]
@@ -87,19 +89,19 @@ function next() {
 		current_test += 1
     if (current_test < num_tests) {
 
-			cur_number = tests[1][current_test];
+        cur_number = tests[1][current_test];
 			console.log("returennn", cur_number, responses)
 
-			var trueResponse = tests[0][cur_number]()()
+        var trueResponse = tests[0][cur_number]()()
 			var minimum = Math.min(trueResponse[0], trueResponse[1])
 			var maximum = Math.max(trueResponse[0], trueResponse[1])
 			console.log("truTH", minimum / maximum, trueResponse)
 				responses[cur_number].truth
-      if (responses[cur_number].guess !== undefined) {
-				document.getElementById("input-text").value = responses[cur_number].guess;
-			} else {
-				document.getElementById("input-text").value = ""
-			}
+        if (responses[cur_number].guess !== undefined) {
+            document.getElementById("input-text").value = responses[cur_number].guess;
+        } else {
+            document.getElementById("input-text").value = ""
+        }
 
       progress_number = progress_number + 0.1;
       bar.animate(progress_number);  // Number from 0.0 to 1.0
@@ -120,15 +122,15 @@ function next() {
 function back() {
     document.getElementById('fcn-output').innerHTML = '';
     if (current_test > 0) {
-				responses[cur_number].guess = document.getElementById("input-text").value;
-				current_test -= 1
-				cur_number = tests[1][current_test];
-				tests[0][cur_number]()()
-				console.log(responses[cur_number], cur_number, responses)
+        responses[cur_number].guess = document.getElementById("input-text").value;
+        current_test -= 1
+        cur_number = tests[1][current_test];
+        tests[0][cur_number]()()
+        console.log(responses[cur_number], cur_number, responses)
         document.getElementById("input-text").value = responses[cur_number].guess;
         progress_number = progress_number - 0.1;
         bar.animate(progress_number);  // Number from 0.0 to 1.0
-				disable_next_button()
+        disable_next_button()
         disable_back_button()
     } else {
         //TODO record response to db
@@ -161,19 +163,19 @@ function disable_back_button() {
 
 //functions to generate d3 graphs
 function gen_1() {
-    return appleWatch 
+    return appleWatch
 }
 
 function gen_2() {
-	return smallMultiples
+	return appleWatch
 }
 
 function gen_3() {
-    return bar_chart
+	return appleWatch
 }
 
 function gen_4() {
-    return appleWatch
+    return smallMultiples
 }
 
 function gen_5() {
@@ -181,15 +183,15 @@ function gen_5() {
 }
 
 function gen_6() {
-    return bar_chart
+    return smallMultiples
 }
 
 function gen_7() {
-    return appleWatch
+    return bar_chart
 }
 
 function gen_8() {
-    return smallMultiples
+    return bar_chart
 }
 
 function gen_9() {
@@ -197,5 +199,14 @@ function gen_9() {
 }
 
 function gen_10() {
-    return () => 10
+    return pie_chart
 }
+
+function gen_11() {
+    return pie_chart
+}
+
+function gen_12() {
+    return pie_chart
+}
+

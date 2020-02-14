@@ -1,5 +1,5 @@
 function bar_chart() {
-    let margin = {top: 80, right: 30, bottom: 10, left: 30},
+    let margin = {top: 40, right: 30, bottom: 40, left: 85},
         width = window.innerWidth * 0.6 - margin.left - margin.right,
         height = window.innerHeight * 0.4 - margin.top - margin.bottom;
 
@@ -18,11 +18,12 @@ function bar_chart() {
         .domain([0, 100])
         .range([0, width - margin.right - margin.left]);
     svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + height + ")")
+        .attr("transform", "translate(" + margin.left + "," + (height+margin.top) + ")")
         .call(d3.axisBottom(x)
             .tickValues([])
             .tickSize(0))
-        .attr("class", "axis");
+        .attr("class", "axis")
+        .style("stroke-width", "2px");
 
 
     // Add Y axis
@@ -30,12 +31,13 @@ function bar_chart() {
         .domain([0, 100])
         .range([height, 0]);
     svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + 0 + ")")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .call(d3.axisLeft(y)
             .tickValues([])
             .tickSize(0)
         )
-        .attr("class", "axis");
+        .attr("class", "axis")
+        .style("stroke-width", "2px")
 
 
     svg.selectAll(".bar")
@@ -48,13 +50,14 @@ function bar_chart() {
         .attr("y", function (d) {
             return y(d);
         })
-        .attr("transform", "translate(" + (1 + margin.left) + "," + 0 + ")")
+        .attr("transform", "translate(" + (1 + margin.left) + "," + margin.top + ")")
         .attr("width", ((width - margin.left - margin.right) / 10) - 10)
         .attr("height", function (d) {
             return height - y(d);
         })
         .attr('fill-opacity', 0)
         .attr('stroke', 'black')
+        .style("stroke-width", "2px")
         .attr('');
 
 		var marker_pos = generate_marker_pos()
@@ -65,11 +68,10 @@ function bar_chart() {
         .attr('cx', function (d) {
             rect_width = d3.select('.bar').node().getBoundingClientRect().width
             console.log(rect_width)
-            return (d * (rect_width) + (d-1)*10 - (rect_width/2))
+            return (d * (rect_width) + (d - 1) * 10 - (rect_width / 2))
         })
         .attr('cy', height + margin.bottom)
-        .attr("transform", "translate(" + (margin.left) + "," + 0 + ")")
-
+        .attr("transform", "translate(" + (margin.left) + "," + margin.bottom/2 + ")")
         .attr('r', 5)
 	
 		return [data[marker_pos[0]], data[marker_pos[1]]]
@@ -78,8 +80,8 @@ function bar_chart() {
 
 function generate_marker_pos() {
     let markers = [];
-    markers[0] = Math.floor(Math.random() * Math.floor(9))+1;
-    markers[1] = markers[0]+1;
+    markers[0] = Math.floor(Math.random() * Math.floor(9)) + 1;
+    markers[1] = markers[0] + 1;
     console.log(markers)
     return markers
 }
