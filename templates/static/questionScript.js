@@ -3,18 +3,18 @@ let cur_number = null;
 let bar = null;
 let progress_number = 0;
 let responses = {
-	1: {'truth': undefined, 'guess': undefined},
-	2: {'truth': undefined, 'guess': undefined},
-	3: {'truth': undefined, 'guess': undefined},
-	4: {'truth': undefined, 'guess': undefined},
-	5: {'truth': undefined, 'guess': undefined},
-	6: {'truth': undefined, 'guess': undefined},
-	7: {'truth': undefined, 'guess': undefined},
-	8: {'truth': undefined, 'guess': undefined},
-	9: {'truth': undefined, 'guess': undefined},
-	10: {'truth': undefined, 'guess': undefined},
-	11: {'truth': undefined, 'guess': undefined},
-	12: {'truth': undefined, 'guess': undefined}
+    1: {'truth': undefined, 'guess': undefined},
+    2: {'truth': undefined, 'guess': undefined},
+    3: {'truth': undefined, 'guess': undefined},
+    4: {'truth': undefined, 'guess': undefined},
+    5: {'truth': undefined, 'guess': undefined},
+    6: {'truth': undefined, 'guess': undefined},
+    7: {'truth': undefined, 'guess': undefined},
+    8: {'truth': undefined, 'guess': undefined},
+    9: {'truth': undefined, 'guess': undefined},
+    10: {'truth': undefined, 'guess': undefined},
+    11: {'truth': undefined, 'guess': undefined},
+    12: {'truth': undefined, 'guess': undefined}
 };
 let current_test = -1;
 let num_tests = 12;
@@ -50,7 +50,7 @@ window.onload = function () {
 function enter_button_listener() {
     let input = document.getElementById('input-text');
     // Execute a function when the user releases a key on the keyboard
-    input.addEventListener("keyup", function(event) {
+    input.addEventListener("keyup", function (event) {
         // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
             // Cancel the default action, if needed
@@ -84,11 +84,11 @@ function load_test_vars() {
 
 function next() {
     document.getElementById('fcn-output').innerHTML = '';
-		if (responses[cur_number] !== undefined) {
-			cur_number = tests[1][current_test];
-      responses[cur_number].guess = document.getElementById("input-text").value;
-		}
-		current_test += 1
+    if (responses[cur_number] !== undefined) {
+        cur_number = tests[1][current_test];
+        responses[cur_number].guess = document.getElementById("input-text").value;
+    }
+    current_test += 1
     if (current_test < num_tests) {
 
         cur_number = tests[1][current_test];
@@ -97,8 +97,8 @@ function next() {
         var trueResponse = tests[0][cur_number]()()
 			var minimum = Math.min(trueResponse[0], trueResponse[1])
 			var maximum = Math.max(trueResponse[0], trueResponse[1])
-			i//console.log("truTH", minimum / maximum, trueResponse)
-				responses[cur_number].truth = minimum / maximum
+				console.log("truTH", minimum / maximum, trueResponse)
+				responses[cur_number].truth = 100 * minimum / maximum
         if (responses[cur_number].guess !== undefined) {
             document.getElementById("input-text").value = responses[cur_number].guess;
         } else {
@@ -108,8 +108,8 @@ function next() {
       progress_number = progress_number + (1.0 / 12.0);
       bar.animate(progress_number);  // Number from 0.0 to 1.0
 
-      disable_next_button();
-			disable_back_button()
+        disable_next_button();
+        disable_back_button()
     } else {
         //TODO record response to db
         document.getElementById("content-column").innerHTML = "<div id=\"fcn-output\"></div>";
@@ -169,11 +169,11 @@ function gen_1() {
 }
 
 function gen_2() {
-	return appleWatch
+    return appleWatch
 }
 
 function gen_3() {
-	return appleWatch
+    return appleWatch
 }
 
 function gen_4() {
@@ -212,3 +212,4 @@ function gen_12() {
     return pie_chart
 }
 
+//helper to only allow
