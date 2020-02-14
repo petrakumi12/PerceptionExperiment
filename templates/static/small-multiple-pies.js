@@ -58,7 +58,7 @@ var smallMultiples = () => {
         .attr("d", arc)
         .style("stroke-width", "2px");
 
-
+	var marker_pos = generate_marker_pos()
 
     d3.select(".graph")
         .append('svg')
@@ -67,7 +67,7 @@ var smallMultiples = () => {
         })
         .attr('height', 35)
         .selectAll('circle')
-        .data(generate_marker_pos())
+        .data(marker_pos)
         .enter().append('circle')
         .attr('cx', function (d) {
             let pie_width = d3.select('.svg-class').node().getBoundingClientRect().width
@@ -77,4 +77,5 @@ var smallMultiples = () => {
         .attr("transform", "translate(" + (width / 12) + "0)")
         .attr('r', 4)
 
+	return [data[marker_pos[0]], data[marker_pos[1]]]
 }

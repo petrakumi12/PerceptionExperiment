@@ -40,9 +40,11 @@ function pie_chart() {
         .attr('stroke', 'black')
         .style("stroke-width", "2px");
 
+	var marker_pos = generate_marker_pos()
+
     svg
         .selectAll('circle')
-        .data(generate_marker_pos())
+        .data(marker_pos)
         .enter().append('circle')
         .attr('cx', function (d) {
             return mark_radius * Math.cos((-Math.PI / 2) + get_marker_pos(d, data))
@@ -51,6 +53,8 @@ function pie_chart() {
             return mark_radius * Math.sin((-Math.PI / 2) + get_marker_pos(d, data))
         })
         .attr('r', 4)
+
+	return [data[marker_pos[0]], data[marker_pos[1]]]
 }
 
 function get_marker_pos(d, data) {

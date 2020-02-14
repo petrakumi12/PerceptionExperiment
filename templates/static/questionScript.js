@@ -12,10 +12,12 @@ let responses = {
 	7: {'truth': undefined, 'guess': undefined},
 	8: {'truth': undefined, 'guess': undefined},
 	9: {'truth': undefined, 'guess': undefined},
-	10: {'truth': undefined, 'guess': undefined}
+	10: {'truth': undefined, 'guess': undefined},
+	11: {'truth': undefined, 'guess': undefined},
+	12: {'truth': undefined, 'guess': undefined}
 };
 let current_test = -1;
-let num_tests = 10;
+let num_tests = 12;
 
 window.onload = function () {
     disable_next_button();
@@ -90,20 +92,20 @@ function next() {
     if (current_test < num_tests) {
 
         cur_number = tests[1][current_test];
-			console.log("returennn", cur_number, responses)
+			//console.log("returennn", cur_number, responses)
 
         var trueResponse = tests[0][cur_number]()()
 			var minimum = Math.min(trueResponse[0], trueResponse[1])
 			var maximum = Math.max(trueResponse[0], trueResponse[1])
-			console.log("truTH", minimum / maximum, trueResponse)
-				responses[cur_number].truth
+			i//console.log("truTH", minimum / maximum, trueResponse)
+				responses[cur_number].truth = minimum / maximum
         if (responses[cur_number].guess !== undefined) {
             document.getElementById("input-text").value = responses[cur_number].guess;
         } else {
             document.getElementById("input-text").value = ""
         }
 
-      progress_number = progress_number + 0.1;
+      progress_number = progress_number + (1.0 / 12.0);
       bar.animate(progress_number);  // Number from 0.0 to 1.0
 
       disable_next_button();
@@ -128,7 +130,7 @@ function back() {
         tests[0][cur_number]()()
         console.log(responses[cur_number], cur_number, responses)
         document.getElementById("input-text").value = responses[cur_number].guess;
-        progress_number = progress_number - 0.1;
+        progress_number = progress_number - (1.0 / 12.0);
         bar.animate(progress_number);  // Number from 0.0 to 1.0
         disable_next_button()
         disable_back_button()

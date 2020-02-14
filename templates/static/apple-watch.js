@@ -6,7 +6,6 @@ var appleWatch = () => {
 	//.sort((a, b) => {return a-b})
 	
 var selection = d3.select(".graph").node().getBoundingClientRect()
-	console.log("WE", selection)
 	var margin = {top: 40, right: 30, bottom: 10, left: 30},
 		  width = selection.width - margin.left - margin.right,
 		  height = 400 - margin.top - margin.bottom;
@@ -21,7 +20,6 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 	}
 	chosenOne[1] = chosenOne[0]+1
 
-    // console.log("HELLO THERE",  d3.select(".graph"))
     var svg = d3.select(".graph").append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -29,9 +27,8 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
         .data(data)
         .enter().append("g")
         .attr("class", d => {
-            //console.log("dd", d)
             if (d !== undefined && (d[2] === chosenOne[0] || d[2] === chosenOne[1])) {
-                console.log("You were the chosen one, Anakin!", chosenOne, d[2])
+                //console.log("You were the chosen one, Anakin!", chosenOne, d[2])
                 return "chosenOne"
             }
             return "lame"
@@ -51,7 +48,6 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
             else return "#CCCCCC"
         })
         .attr("stroke", d => {
-            //console.log(d)
             if (d.index === 0) return "#CCCCCC"
             else return "#CCCCCC"
         })
@@ -62,12 +58,10 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
             return t(d)
         })
 
-	//console.log("You were the chosen one Anakin!", chosenOne)
 
 	svg.selectAll(".chosenOne")
 	    .selectAll("circle")
 	    .data((d) => {
-				//console.log(d)
 				return [{"data": d[0], "index": d[2]}]
 			})
 			.enter().append("circle")
@@ -76,8 +70,6 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 					else return -3
 				}) 
 				.attr("cy", d => {
-						//console.log("why", d)
-						//console.log(-15 - 10*d.index)
 						return -15 - 10*d.index
 				})
 				.attr("r", 3)
@@ -86,5 +78,7 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
 					else return "#000000"
 				})
 	
+
+	console.log("HI PETRA", [data[chosenOne[0]][0], data[chosenOne[0]][0]])
 	return [data[chosenOne[0]][0], data[chosenOne[1]][0]]
 }
