@@ -1,91 +1,107 @@
 Assignment 3 - Replicating a Classic Experiment  
 ===
 
-For the scope of this project, assume the role of a scientist who runs experiments for a living.
+Link to app: [dataexperiment.herokuapp.com](dataexperiment.herokuapp.com)
 
-Q: How do we know that bar charts are "better" than pie charts?  
-A: Controlled experiments!
+Group Members: Petra Kumi, Philippe Lessard
 
-In this assignment you'll implement a simple controlled experiment using some of the visualizations you’ve been building in this class. 
-You'll need to develop support code for the experiment sequence, results file output, and other experiment components. 
-(These are all simple with Javascript buttons and forms.)
-The main goals for you are to a) test three competing visualizations, b) implement data generation and error calculation functions from Cleveland and McGill's 1984 paper, c) run the experiment with 10 participants, and d) do some basic analysis and reporting of the results.
+Images of app at the bottom
 
-For this assignment you should write everything from scratch -- except for charts you've made in previous assignments.
-You may *reference* demo programs from books or the web, and if you do please provide a References section with links at the end of your Readme.
+## Description and Methodology
 
-Requirements
----
 
-- Look it over Cleveland and McGill's original experiment (see the section below) and [watch this video](experiment-example.mp4) to get a sense of the experiment structure and where your visualizations will go.
-- When viewing the example experiment video, note the following:
-    - Trials are in random order.  
-    - Each trial has a randomly generated set of 10 data points.  
-    - Two of these data points are marked.  
-- Implement the data generation code **as described in the Cleveland & McGill paper**. 
-    - The goal is to generate 10 random datapoints (values should be between 0 and 100) and to mark two of them for comparison in the trial. 
-- Add 3 of your (hopefully) existing visualizations to the experiment. When you are adding these visualizations, think about *why* these visualizations are interesting to test. In other words, keep in mind a *testable hypothesis* for each of the added visualization. Some good options include your bar charts, pie charts, stacked-bar charts, and treemaps. You can also rotate your bar chart to be horizontal or upside-down as one of your visualizations. You are encouraged to test unorthodox charts -- radar charts come to mind as something that has never been tested.
-    - Follow the style from Cleveland and McGill closely (i.e. no color) unless you are specifically testing a hypothesis (i.e. color versus no color). Pay attention to spacing between bars. Do not mark bars for comparison using color-- this makes the perceptual task too easy.
-- After each trial, implement code that grades and stores participant’s responses.
-- At the end of the experiment, use Javascript to show the data from the current experiment\* (i.e. a comma separated list in a text box) and copy it into your master datafile. See the Background section below for an example of what this file should look like. (\*Alternately implement a server, if you're experienced with that sort of thing.)
+### Steps taken to implement survey
 
-- Figure out how to calculate "Error", the difference between the true percentage and the reported percentage.
-- Scale this error using Cleveland and McGill’s log-base-2 error. For details, see the background section (there’s a figure with the equation). This becomes your “Error” column in the output. Make sure you use whole percentages (not decimal) in the log-base-2 equation. Make sure you handle the case of when a person gets the exact percentage correct (log-base-2 of 1/8 is -3, it is better to set this to 0).
-- Run your experiment with 10 or more participants.  
-    - Grab your friends or people in the class.  
-    - Run at least 20 trials per visualization type. If you have 3 visualizations, run at least 60 random trials.
-- Make sure to save the resulting CSV after each participant. Compile the results into a master csv file (all participants, all trials).
-- Produce a README with figures that shows the visualizations you tested and results, ordered by best performance to worst performance.
-- To obtain the ranking, calculate and report the average Error for each visualization across all trials and participants. This should be straightforward to do in a spreadsheet.
-- Use Bootstrapped 95\% confidence intervals for your error upper and lower bounds. Include these in your figures. Bootstrapped confidence intervals are easily implemented in R. 
-- Include example images of each visualization as they appeared in your experiment (i.e. if you used a pie chart show the actual pie chart you used in the experiment along with the markings, not an example from Google Images).
+This assignment is a replication of an experiment done by Cleveland and McGill: <http://www.cs.ubc.ca/~tmm/courses/cpsc533c-04-spr/readings/cleveland.pdf>
+To complete this assignment, we took the following steps:
+- Create four different types of data visualizations
+- Generate ten random points between 1 and 100 as data for each visualization
+- Generate two random consecutive datapoints to mark in the visualization
+    - We chose to compare consecutive datapoints throughout the experiment because we felt that comparing adjacent datapoints might lead to different results, and we wanted to compare our results to the ones from other studies that might not have compared exclusively adjacent datapoints.
+- Prompt the subjects of our study to input what percentage is the smaller marked section of the bigger marked section
+- Save the responses to a MongoDB database
+- Aggregate the responses onto a CSV file
+- Use Python to calculate a log base 2 error between the real and predicted value of each response, following the paper's example
+- Use R to calculate the bootstrapped 95% confidence interval using normal distribution
 
-## General Requirements
 
-0. Your code should be forked from the GitHub repo and linked using GitHub pages.
-2. Your project should use d3 to build visualizations. 
-3. Your writeup (readme.md in the repo) should contain the following:
+### Types of charts generated
 
-- Working link to the experiment hosted on gh-pages.
-- Concise description and screenshot of your experiment.
-- Description of the technical achievements you attempted with this project.
-- Description of the design achievements you attempted with this project.
+We generated four different types of charts/graphs: 
+- Simple pie chart
+- Simple bar chart
+- Small multiples: ten small pie charts, each of which containing only one value of the dataset, denoted with black
+- Radial graph: all datapoints are wrapped around each other in concentric rings. Each ring's data is shown by filling the ring with black starting from the top. 
 
-Background
----
+Example graphs are shown below.
+We had multiple reasons for deciding on these graphs: 
+- We were interested to see if the bar charts are truly the easiest to accurately predict.
+- We were interested to see if people truly have a hard time accurately predicting values in pie charts
+- We wanted to use pie charts in a new way that is easier to evaluate. For this we decided to use small multiples. Our reasoning is that in the case of small
+multiples, users only have to compare angles between charts, as the starting position is the same for all data points. We hoped that using aligned angles as a channel as opposed to unaligned angles would improve the accuracy. 
+- We did not come across radial charts in the study, so we were curious to see how well users performed on this kind of data visualization, given that they have become really popular in modern UIs (Apple watch and Fitbit app being some examples)
 
-In 1984, William Cleveland and Robert McGill published the results of several controlled experiments that pitted bar charts against pies and stacked-bar variants. 
-Their paper (http://www.cs.ubc.ca/~tmm/courses/cpsc533c-04-spr/readings/cleveland.pdf) (http://info.slis.indiana.edu/~katy/S637-S11/cleveland84.pdf) is considered a seminal paper in data visualization.
-In particular, they ran a psychology-style experiment where users were shown a series of randomly-generated charts with two graphical elements marked like this:
+![all_graphs](img/all_graphs.png)
 
-![cleveland bar chart](img/cleveland-bar.png)
 
-Participants were then asked, "What percentage is the smaller of the larger?". 
-This was repeated hundreds of time with varying data and charts. 
-By the end of the study, Cleveland and McGill had amassed a large dataset that looked like this:
 
-![cleveland table](img/cleveland-table.png)
+## Results
 
-__Log-base-2 or "cm-error"__: The true percent is the actual percentage of the smaller to the larger, while the reported percent is what participants reported. 
-Cleveland and McGill recognized that their analyses would be biased if they took `abs(ReportedPercent – TruePercent)` as their score for error. 
-To compensate, they came up with a logarithmic scale for error with this equation:
+From the study, we generated the following results:
+- Total number of subjects: 20
+- Number of predictions per subject: 12
+- 95% confidence intervals (normal distribution, 1000 bootstrapped samples):
+    - Bar Chart: (12.32, 15.75)
+    - Pie Chart: (12.47, 14.90)
+    - Small Multiples: (12.04, 17.59)
+    - Radial Graph: (8.64, 12.52) 
+- Best performing chart: radial graph
+- Worst performing chart: small multiples
+- Takeaways: We were expecting people to do really well on the bar charts and really poorly on the pie charts. Our hypothesis that the small multiples chart would perform better than the pie chart did not prove true. Moreover, we found it surprising that the radial graphs were the best performing ones, as we received a lot of feedback from people saying they were confusing. 
 
-![cleveland equation](img/cleveland-equation.png)
 
-You’ll be implementing this error score as part of the lab. 
-(Hint: it’s not a trick question, this is just to familiarize you with the experiment protocol). 
-With this Cleveland-McGill error score you can better compare the performance of the charts you test to figure out which one performs the best.
+Below we show the graphs generated from bootstrapping to find the 95% confidence interval. The dotted line in the histogram shows the middle of the confidence interval.
+![all_results](img/all_results.png)
 
-As a baseline, compare your average Error scores to the following chart, which include both Cleveland and McGill’s results as well as more recent extensions of this experiment (lower error indicates better performance, and error bars are bootstrapped 95% confidence intervals (`http://en.wikipedia.org/wiki/Confidence_interval#Meaning_and_interpretation`)):
 
-![cleveland results](img/cleveland-results.png)
 
-GitHub Details
----
+## Achievements
 
-- Fork the GitHub Repository. You now have a copy associated with your username.
-- Make changes to index.html to fulfill the project requirements. 
-- Make sure your "master" branch matches your "gh-pages" branch. See the GitHub Guides referenced above if you need help.
-- Edit this README.md with a link to your gh-pages site: e.g. http://YourUsernameGoesHere.github.io/Experiment/index.html
-- Replace this file (README.md) with your writeup and Design/Technical achievements.
-- To submit, make a [Pull Request](https://help.github.com/articles/using-pull-requests/) on the original repository.
+
+### Technical Achievements
+
+- Used Flask with a MongoDB server to store responses and Heroku for hosting
+- Restricted input to numerical between 0 and 100
+- Added a back button so users can move back and forth in the survey to change their answers without losing their progress
+- Users can press Enter to move to the next visualization instead of the Next button
+- Next button is disabled until user types in a value
+- Users can read the help instructions at any time without interrupting their progress on the survey
+
+
+### Design Achievements
+
+- Used Bootstrap for a smoother-looking UI
+- Added transitions to elements in the homepage for a smoother feel of the site
+- Generated moving d3 polygons in the corner of the homepage to add to the design aspect of the site without distracting the user
+- Added a progress bar to let users know what their progress on the survey is 
+- Added an svg at the end of the survey because it's fun to have
+
+
+
+## Some screenshots of our application:
+### Home page
+![homepage](img/homepage.png)
+
+
+### The first experiment
+![experiment](img/experiment.png)
+
+
+### Help pop-up box
+![help_popup](img/help_popup.png)
+
+
+### The final page
+![final_page](img/thankyou.png)
+
+

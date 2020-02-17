@@ -2,13 +2,13 @@
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
 
 body {
@@ -39,15 +39,15 @@ body {
 }
 
 .home-page-card {
-	position: absolute;
-	left: 0; 
-	top: 0;
-	width: 50vw;
-	text-align: center;
-	margin-left: 25vw;
-	margin-right: 25vw;
-	margin-top: 25vh;
-	margin-bottom: 25vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50vw;
+    text-align: center;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 25vh;
+    margin-bottom: 25vh;
 }
 
 #help-text {
@@ -58,12 +58,35 @@ body {
 }
 
 #start-btn {
-    position: absolute;
-    top: 60vh;
+    /*position: absolute;*/
+    /*top: 60vh;*/
+    margin-top: 20vh;
     height: 10vh;
     width: 30vw;
     background-color: #2a6b81;
     border: solid #153540;
     font-size: 1.3em;
     margin-left: 4em;
+}
+
+#bottom-text {
+    /*height: 10vh;*/
+    /*width: 30vw;*/
+    font-size: 1em;
+    margin-left: 5em;
+}
+
+#question-card {
+    margin-top: 15vh;
+}
+
+.help-link {
+    margin-bottom: 1em;
+}
+
+.help-box {
+    position: absolute;
+    top: 10vh;
+    left: 20vw;
+    z-index:100;
 }

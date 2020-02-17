@@ -52,11 +52,11 @@ var smallMultiples = (data=null, marker_pos=null) => {
         .attr("fill", (d) => {
             //console.log(d.pieIndex)
             if (d.index === 0) {return "#000000"}
-            else {return "#CCCCCC"}
+            else {return "#FFFFFF"}
         })
         .attr("stroke", d => {
             if (d.index !== 2) {return "#000000"}
-            else {return "#CCCCCC"}
+            else {return "#FFFFFF"}
         })
         .attr("d", arc)
         .style("stroke-width", "2px");

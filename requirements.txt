@@ -1,2 +1,6 @@
 flask
 flask-pymongo
+gunicorn
+pymongo[srv]
+numpy
+pandas

@@ -49,11 +49,11 @@ var selection = d3.select(".graph").node().getBoundingClientRect()
         .join("path")
         .attr("fill", d => {
             if (d.index === 0) return "#000000"
-            else return "#CCCCCC"
+            else return "#FFFFFF"
         })
         .attr("stroke", d => {
-            if (d.index === 0) return "#CCCCCC"
-            else return "#CCCCCC"
+            if (d.index === 0) return "#FFFFFF"
+            else return "#FFFFFF"
         })
         .attr("d", d => {
             let t = d3.arc()

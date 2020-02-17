@@ -88,3 +88,10 @@ function gen_background() {
 
 }
 
+function updateWindow() {
+    let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+    let y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
+
+    d3.select('svg').attr("width", x).attr("height", y);
+}
+

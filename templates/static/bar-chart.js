@@ -7,7 +7,7 @@ function bar_chart(data=null, marker_pos=null) {
 			data = d3.range(10).map(() => 1 + Math.floor(Math.random() * Math.floor(99)))
 		}
 
-    console.log("data is", data);
+    // console.log("data is", data);
 
     let svg = d3.select(".graph").append("svg");
 
@@ -69,7 +69,7 @@ function bar_chart(data=null, marker_pos=null) {
         .enter().append('circle')
         .attr('cx', function (d) {
             rect_width = d3.select('.bar').node().getBoundingClientRect().width
-            console.log(rect_width)
+            // console.log(rect_width)
             return (d * (rect_width) + (d - 1) * 10 - (rect_width / 2))
         })
         .attr('cy', height + margin.bottom)
@@ -84,7 +84,7 @@ function generate_marker_pos() {
     let markers = [];
     markers[0] = Math.floor(Math.random() * Math.floor(9)) + 1;
     markers[1] = markers[0] + 1;
-    console.log(markers)
+    // console.log(markers)
     return markers
 }
 

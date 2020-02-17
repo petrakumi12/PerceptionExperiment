@@ -9,6 +9,8 @@
     <script src="https://d3js.org/d3-random.v2.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
@@ -21,11 +23,23 @@
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
     <script type="text/javascript" src="static/script.js"></script>
     <script type="text/javascript" src="static/homepage_d3.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 <body>
 <div id="svg-div"></div>
-<div id="help-text"></div>
-<button type="button" class="btn btn-info" onclick="start_clicked()" id="start-btn">
+<div id="help-text" data-aos="fade-right" data-aos-duration="2000">
+    <i> Hello there, and thank you for deciding to take this survey!</i> <br><br>
+    In this survey, you will be shown various graphs that visualize ten data points. <br>
+    Two of these points will be marked.<br>
+    You will be prompted to input what percentage the smaller marked value is from the bigger. <br>
+    For example, write down 35 if you think the smaller section represents 35% of the value of the bigger one.<br><br>
+    <b>In the charts that contain both black and white sections, the data is represented by the black section.</b> <br>
+    Once you are sure of your answer, press Next. <br><br>
+    You are able to go back any time to change your answer, until you press Finish on the final question.<br>
+</div>
+<button type="button" class="btn btn-info" onclick="start_clicked()" id="start-btn" data-aos="fade-left" data-aos-duration="2000">
     Click here to get started!
 </button>
+<p id="bottom-text" data-aos="fade-left" data-aos-duration="2000">** please take survey in fullscreen on a PC or laptop </p>
 </body>
 </html>

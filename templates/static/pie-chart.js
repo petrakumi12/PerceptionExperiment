@@ -10,7 +10,7 @@ function pie_chart(data=null, marker_pos=null) {
         return b - a
     });
 
-    console.log("data is", data);
+    // console.log("data is", data);
 
     var radius = Math.min(width, height) / 2 - margin
     var mark_radius = radius - 7
@@ -24,7 +24,7 @@ function pie_chart(data=null, marker_pos=null) {
 
     let pie = d3.pie()
         .value(function (d) {
-            console.log('aaaa', d.value)
+            // console.log('aaaa', d.value)
             return d.value;
         });
     let data_ready = pie(d3.entries(data))
@@ -62,7 +62,7 @@ function pie_chart(data=null, marker_pos=null) {
 function get_physical_pos(d, data) {
 
     let increment = data.reduce((a, b) => a + b, 0)/100
-    console.log('increment', increment)
+    // console.log('increment', increment)
     let sum = 0;
 
     for (let i = 0; i < d; i++) {
